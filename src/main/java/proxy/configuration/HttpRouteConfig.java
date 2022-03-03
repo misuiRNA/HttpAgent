@@ -8,22 +8,22 @@ import java.util.List;
 @Component
 @ConfigurationProperties(prefix = "route.routes")
 public class HttpRouteConfig {
-    private List<HttpRoute> routeList;
+    private List<HttpRoutingRule> routingRules;
 
-    public void setRouteList(List<HttpRoute> routes) {
-        System.out.println("========= print test begin =========");
-        for (HttpRoute route : routes) {
+    public void setRoutingRules(List<HttpRoutingRule> routes) {
+        System.out.println("========= set routing rules begin =========");
+        for (HttpRoutingRule route : routes) {
             System.out.println("- " + route);
         }
-        System.out.println("========= print test end =========");
-        this.routeList = routes;
+        System.out.println("========= set routing rules end =========");
+        this.routingRules = routes;
     }
 
     @Override
     public String toString() {
         StringBuilder res = new StringBuilder();
-        res.append(String.format("num=%d\n<br>", routeList.size()));
-        for (Object route : routeList) {
+        res.append(String.format("num=%d\n<br>", routingRules.size()));
+        for (Object route : routingRules) {
             res.append(route.toString());
             res.append("\n<br>");
         }
