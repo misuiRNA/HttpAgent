@@ -4,10 +4,10 @@ server:
     context-path: /test
 
 route:
-  routes:
+  manager:
     routingRules:
-      - name: service_001
+      - serviceName: service_001
         serviceUrl: http://127.0.0.1:8080
 
-      - name: service_002
+      - serviceName: service_002
         serviceUrl: http://127.0.0.1:8081

@@ -1,20 +1,23 @@
 package proxy.configuration;
 
 public class HttpRoutingRule {
-    private String name;
+    private String serviceName;
     private String serviceUrl;
 
-    public void setName(String name) {
-        this.name = name;
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
     }
 
     public void setServiceUrl(String serviceUrl) {
         this.serviceUrl = serviceUrl;
     }
 
-    public String toString() {
-        return String.format("name=%s, serviceUri=%s", name, serviceUrl);
+    public String getServiceName() {
+        return serviceName;
     }
 
+    public String toString() {
+        return String.format("serviceName=%s, serviceUrl=%s", serviceName, serviceUrl);
+    }
 }
 
