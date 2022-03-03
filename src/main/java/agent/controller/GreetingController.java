@@ -1,11 +1,11 @@
-package proxy.controller;
+package agent.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import proxy.configuration.HttpRoutingManager;
-import proxy.configuration.HttpRoutingRule;
+import agent.service.HttpRoutingService;
+import agent.domain.HttpRoutingRule;
 
 import java.util.List;
 
@@ -13,14 +13,14 @@ import java.util.List;
 public class GreetingController {
 
     @Autowired
-    private HttpRoutingManager manager;
+    private HttpRoutingService manager;
 
-    @GetMapping(path = "hello")
+    @GetMapping(path = "/hello")
     public String sayHello() {
         return "Hello, I am SpringBoot!";
     }
 
-    @GetMapping(path = "route")
+    @GetMapping(path = "/routes")
     public String getRoute() {
         List<HttpRoutingRule> routingRules = manager.getRoutingRules();
 

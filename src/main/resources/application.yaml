@@ -1,13 +1,13 @@
 server:
   port: 8088
   servlet:
-    context-path: /test
+    context-path: /
 
 route:
   manager:
     routingRules:
       - serviceName: service_001
-        serviceUrl: http://127.0.0.1:8080
+        serviceHostUrl: http://127.0.0.1:8080
 
       - serviceName: service_002
-        serviceUrl: http://127.0.0.1:8081
+        serviceHostUrl: http://127.0.0.1:8081

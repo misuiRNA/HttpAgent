@@ -1,15 +1,16 @@
-package proxy.configuration;
+package agent.service;
 
+import agent.domain.HttpRoutingRule;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Component
+@Service
 @ConfigurationProperties(prefix = "route.manager")
-public class HttpRoutingManager {
+public class HttpRoutingService {
     private List<HttpRoutingRule> routingRules;
     private Map<String, HttpRoutingRule> routingRuleMap;
 
@@ -26,8 +27,9 @@ public class HttpRoutingManager {
         logSettingRoutingRules(routingRules);
     }
 
-    // TODO try to move out with AOP
     private void logSettingRoutingRules(List<HttpRoutingRule> routingRules) {
+        // TODO try to move out as AOP
+
         System.out.println("========= init routing rules begin =========");
         for (HttpRoutingRule route : routingRules) {
             System.out.println("- " + route);
@@ -35,8 +37,17 @@ public class HttpRoutingManager {
         System.out.println("========= init routing rules end =========");
     }
 
-    public String convertUrl(String url) {
-        String targetUrl = url;
-        return targetUrl;
+    public String convertUrl(String uri) {
+        String serviceName = parseServiceNameFromUri(uri);
+        if (!routingRuleMap.containsKey(serviceName)) {
+            return null;
+        }
+        String serviceHostUrl = routingRuleMap.get(serviceName).getServiceHostUrl();
+        String tidyUrl = uri.replaceFirst("/" + serviceName, "");
+        return serviceHostUrl + tidyUrl;
+    }
+
+    private String parseServiceNameFromUri(String uri) {
+        return uri.split("[/]")[1];
     }
 }
