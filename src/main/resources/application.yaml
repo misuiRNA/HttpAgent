@@ -9,5 +9,5 @@ route:
       - serviceName: service_001
         serviceHostUrl: http://127.0.0.1:8080
 
-      - serviceName: service_002
-        serviceHostUrl: http://127.0.0.1:8081
+      - serviceName: flask
+        serviceHostUrl: http://127.0.0.1:51000
