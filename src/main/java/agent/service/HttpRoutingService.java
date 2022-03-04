@@ -37,17 +37,16 @@ public class HttpRoutingService {
         System.out.println("========= init routing rules end =========");
     }
 
-    public String convertUrl(String uri) {
-        String serviceName = parseServiceNameFromUri(uri);
-        if (!routingRuleMap.containsKey(serviceName)) {
+    public String routeUrl(String uri) {
+        HttpRoutingRule rule = findRoutingRule(uri);
+        if (null == rule) {
             return null;
         }
-        String serviceHostUrl = routingRuleMap.get(serviceName).getServiceHostUrl();
-        String tidyUrl = uri.replaceFirst("/" + serviceName, "");
-        return serviceHostUrl + tidyUrl;
+        return rule.routeUrl(uri);
     }
 
-    private String parseServiceNameFromUri(String uri) {
-        return uri.split("[/]")[1];
+    private HttpRoutingRule findRoutingRule(String uri) {
+        String serviceName = uri.split("[/]")[1];
+        return routingRuleMap.get(serviceName);
     }
 }

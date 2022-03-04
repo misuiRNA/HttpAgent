@@ -19,7 +19,7 @@ public class HttpRoutingInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         String orgUri = request.getRequestURI();
-        String targetUrl = routingManager.convertUrl(orgUri);
+        String targetUrl = routingManager.routeUrl(orgUri);
         if (null == targetUrl) {
             System.out.println("[routing]\033[31m match routing rule failed!\033[0m");
             return true;

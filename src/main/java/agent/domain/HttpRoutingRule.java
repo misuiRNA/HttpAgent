@@ -12,16 +12,16 @@ public class HttpRoutingRule {
         this.serviceHostUrl = serviceHostUrl;
     }
 
-    public String getServiceHostUrl() {
-        return serviceHostUrl;
-    }
-
     public String getServiceName() {
         return serviceName;
+    }
+
+    public String routeUrl(String orgUri) {
+        String targetUri = orgUri.replaceFirst("/" + serviceName, "");
+        return serviceHostUrl + targetUri;
     }
 
     public String toString() {
         return String.format("serviceName=%s, serviceUrl=%s", serviceName, serviceHostUrl);
     }
 }
-
