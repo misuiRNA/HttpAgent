@@ -1,32 +1,34 @@
 package agent.interceptor;
 
-import org.springframework.web.servlet.HandlerInterceptor;
 import agent.service.HttpRoutingService;
+import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Writer;
 
+import static utils.AnsiString.*;
+
 public class HttpRoutingInterceptor implements HandlerInterceptor {
 
-    private HttpRoutingService routingManager;
+    private HttpRoutingService routingService;
 
-    public HttpRoutingInterceptor(HttpRoutingService routingManager) {
-        this.routingManager = routingManager;
+    public HttpRoutingInterceptor(HttpRoutingService routingService) {
+        this.routingService = routingService;
     }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        String orgUri = request.getRequestURI();
-        String targetUrl = routingManager.routeUrl(orgUri);
+        String targetUrl = routingService.routeUrl(request);
         if (null == targetUrl) {
-            System.out.println("[routing]\033[31m match routing rule failed!\033[0m");
+            System.out.println("[routing] " + red("match routing rule failed!"));
             return true;
         }
+        System.out.println("[routing] " + green(String.format("match routing rule success: %s ==>> %s",
+                                         request.getRequestURI(),
+                                         targetUrl)));
 
-        String logInfo = String.format("[routing]\033[32m match routing rule success: %s ==>> %s\033[0m",  orgUri, targetUrl);
-        System.out.println(logInfo);
         responseWithString(response, targetUrl);
         return false;
     }

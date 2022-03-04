@@ -4,6 +4,7 @@ import agent.domain.HttpRoutingRule;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +38,8 @@ public class HttpRoutingService {
         System.out.println("========= init routing rules end =========");
     }
 
-    public String routeUrl(String uri) {
+    public String routeUrl(HttpServletRequest request) {
+        String uri = request.getRequestURI();
         HttpRoutingRule rule = findRoutingRule(uri);
         if (null == rule) {
             return null;
