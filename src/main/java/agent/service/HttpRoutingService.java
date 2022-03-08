@@ -42,7 +42,7 @@ public class HttpRoutingService {
         return null != rule;
     }
 
-    public ResponseEntity<String> route(HttpServletRequestRoutingAdapter req) {
+    public ResponseEntity<String> invoke(HttpServletRequestRoutingAdapter req) {
         String url = req.getTotalUrl();
         HttpMethod mtd = req.getMethod();
         HttpEntity<Object> entity = req.getEntity();
@@ -69,14 +69,17 @@ public class HttpRoutingService {
         return routingRuleMap.get(serviceName);
     }
 
+    // TODO try to move out as AOP
     private void logSettingRoutingRules(List<HttpRoutingRule> routingRules) {
-        // TODO try to move out as AOP
-
-        System.out.println("========= init routing rules begin =========");
+        log("========= init routing rules begin =========");
         for (HttpRoutingRule route : routingRules) {
-            System.out.println("- " + route);
+            log("- " + route);
         }
-        System.out.println("========= init routing rules end =========");
+        log("========= init routing rules end =========");
+    }
+
+    private void log(String msg) {
+        System.out.println("[routing] " + msg);
     }
 
 }
