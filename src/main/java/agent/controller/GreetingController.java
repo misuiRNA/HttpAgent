@@ -4,8 +4,8 @@ package agent.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import agent.service.HttpRoutingService;
-import agent.domain.HttpRoutingRule;
+import agent.service.HttpDispatchService;
+import agent.domain.InternalServiceAgent;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
 public class GreetingController {
 
     @Autowired
-    private HttpRoutingService manager;
+    private HttpDispatchService manager;
 
     @GetMapping(path = "/hello")
     public String sayHello() {
@@ -22,7 +22,7 @@ public class GreetingController {
 
     @GetMapping(path = "/routes")
     public String getRoute() {
-        List<HttpRoutingRule> routingRules = manager.getRoutingRules();
+        List<InternalServiceAgent> routingRules = manager.getInterServices();
 
         StringBuilder res = new StringBuilder();
         res.append(String.format("rule num=%d", routingRules.size()));

@@ -3,11 +3,10 @@ server:
   servlet:
     context-path: /
 
-route:
-  manager:
-    routingRules:
-      - serviceName: service_001
-        serviceHostUrl: http://127.0.0.1:8080
+dispatcher:
+  interServices:
+    - serviceName: service_001
+      serviceHostUrl: http://127.0.0.1:8080
 
-      - serviceName: flask
-        serviceHostUrl: http://127.0.0.1:51000
+    - serviceName: flask
+      serviceHostUrl: http://127.0.0.1:51000

@@ -17,21 +17,29 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Map;
 
-public class HttpServletRequestRoutingAdapter {
+public class HttpServlet2InternalRequestAdapter implements InternalHttpRequest {
     private final HttpServletRequest request;
-    private final HttpRoutingRule rule;
 
-    public HttpServletRequestRoutingAdapter(HttpServletRequest request, HttpRoutingRule rule) {
+    public HttpServlet2InternalRequestAdapter(HttpServletRequest request) {
         this.request = request;
-        this.rule = rule;
     }
 
-    public String getTotalUrl() {
-        return rule.routeUrl(request.getRequestURI()) + genQueryString();
+    public String getURI() {
+        return request.getRequestURI();
     }
 
     public HttpMethod getMethod() {
         return HttpMethod.valueOf(request.getMethod());
+    }
+
+    public HttpEntity<Object> getEntity() {
+        Object body = null;
+        try {
+            body = getBody();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new HttpEntity<>(body, getHeaders());
     }
 
     public HttpHeaders getHeaders() {
@@ -46,7 +54,7 @@ public class HttpServletRequestRoutingAdapter {
 
     public Object getBody() throws IOException {
         if (request instanceof StandardMultipartHttpServletRequest) {
-            MultiValueMap<String, Object> formatBody = new LinkedMultiValueMap<String, Object>();
+            MultiValueMap<String, Object> formatBody = new LinkedMultiValueMap<>();
             for (Map.Entry<String, String[]> paramEntity : request.getParameterMap().entrySet()) {
                 formatBody.addAll(paramEntity.getKey(), Arrays.asList(paramEntity.getValue()));
             }
@@ -56,17 +64,7 @@ public class HttpServletRequestRoutingAdapter {
         }
     }
 
-    public HttpEntity<Object> getEntity() {
-        Object body = null;
-        try {
-            body = getBody();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return new HttpEntity<Object>(body, getHeaders());
-    }
-
-    private String genQueryString() {
+    public String getQueryString() {
         String queryStr = request.getQueryString();
         if (null == queryStr || 0 == queryStr.length()) {
             return "";

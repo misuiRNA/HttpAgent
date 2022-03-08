@@ -1,6 +1,6 @@
 package agent.configuration;
 
-import agent.service.HttpRoutingService;
+import agent.service.HttpDispatchService;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -10,9 +10,9 @@ import agent.interceptor.HttpRoutingInterceptor;
 @Configuration
 public class HttpRoutingConfigurer implements WebMvcConfigurer {
 
-    private HttpRoutingService routingManager;
+    private HttpDispatchService routingManager;
     
-    public HttpRoutingConfigurer(HttpRoutingService routingManager) {
+    public HttpRoutingConfigurer(HttpDispatchService routingManager) {
         this.routingManager = routingManager;
     }
 
