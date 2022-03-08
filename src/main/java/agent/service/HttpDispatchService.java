@@ -3,6 +3,7 @@ package agent.service;
 import agent.domain.HttpServlet2InternalRequestAdapter;
 import agent.domain.InternalHttpRequest;
 import agent.domain.InternalServiceAgent;
+import agent.domain.MultipartHttpServlet2InternalRequestAdapter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClientException;
+import org.springframework.web.multipart.support.StandardMultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -66,6 +68,10 @@ public class HttpDispatchService {
     }
 
     private InternalHttpRequest createInternalHttpRequest(HttpServletRequest request) {
+        // TODO: try to optimize the condition, use head 'Content-Type'
+        if (request instanceof StandardMultipartHttpServletRequest) {
+            return new MultipartHttpServlet2InternalRequestAdapter((StandardMultipartHttpServletRequest)request);
+        }
         return new HttpServlet2InternalRequestAdapter(request);
     }
 
