@@ -1,6 +1,6 @@
 package agent.service;
 
-import agent.domain.HttpServlet2InternalRequestAdapter;
+import agent.domain.SimpleHttpServlet2InternalRequestAdapter;
 import agent.domain.InternalHttpRequest;
 import agent.domain.InternalServiceAgent;
 import agent.domain.MultipartHttpServlet2InternalRequestAdapter;
@@ -37,7 +37,7 @@ public class HttpDispatchService {
         for (InternalServiceAgent rule : interServices) {
             interServiceMap.put(rule.getServiceName(), rule);
         }
-        logSettingRoutingRules(interServices);
+        logInterServicesInit(interServices);
     }
 
     public boolean needDispatchToInternalServices(HttpServletRequest request) {
@@ -72,7 +72,7 @@ public class HttpDispatchService {
         if (request instanceof StandardMultipartHttpServletRequest) {
             return new MultipartHttpServlet2InternalRequestAdapter((StandardMultipartHttpServletRequest)request);
         }
-        return new HttpServlet2InternalRequestAdapter(request);
+        return new SimpleHttpServlet2InternalRequestAdapter(request);
     }
 
     private InternalServiceAgent findService(HttpServletRequest request) {
@@ -98,7 +98,7 @@ public class HttpDispatchService {
     }
 
     // TODO try to move out as AOP
-    private void logSettingRoutingRules(List<InternalServiceAgent> routingRules) {
+    private void logInterServicesInit(List<InternalServiceAgent> routingRules) {
         log("========= init routing rules begin =========");
         for (InternalServiceAgent route : routingRules) {
             log("- " + route);
@@ -107,7 +107,7 @@ public class HttpDispatchService {
     }
 
     private static void log(String msg) {
-        System.out.println("[routing] " + msg);
+        System.out.println("[dispatcher] " + msg);
     }
 
 }

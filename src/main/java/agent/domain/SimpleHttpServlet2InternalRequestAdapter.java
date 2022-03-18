@@ -5,9 +5,9 @@ import org.springframework.util.StreamUtils;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-public class HttpServlet2InternalRequestAdapter extends HttpServlet2InternalRequestAbstractAdapter {
+public class SimpleHttpServlet2InternalRequestAdapter extends HttpServlet2InternalRequestAbstractAdapter {
 
-    public HttpServlet2InternalRequestAdapter(HttpServletRequest request) {
+    public SimpleHttpServlet2InternalRequestAdapter(HttpServletRequest request) {
         super(request);
     }
 
