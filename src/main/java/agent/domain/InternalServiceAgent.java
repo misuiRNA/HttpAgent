@@ -1,5 +1,6 @@
 package agent.domain;
 
+import agent.domain.requst.InternalHttpRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -24,14 +25,12 @@ public class InternalServiceAgent {
 
     public ResponseEntity<String> invoke(InternalHttpRequest request)  throws RestClientException {
         String remoteUrl = parseUrl(request) + request.getQueryString();
+        log(green(String.format("invoke internal service: %s", remoteUrl)));
         return new RestTemplate().exchange(remoteUrl, request.getMethod(), request.getEntity(), String.class);
     }
 
     private String parseUrl(InternalHttpRequest request) {
-        String orgURI = request.getURI();
-        String targetURI = orgURI.replaceFirst("/" + serviceName, "");
-        log(green(String.format("match routing rule success: %s ==>> %s", orgURI, targetURI)));
-        return serviceHostUrl + targetURI;
+        return serviceHostUrl + request.getURI();
     }
 
     public String toString() {

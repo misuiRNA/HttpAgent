@@ -1,9 +1,9 @@
 package agent.service;
 
-import agent.domain.SimpleHttpServlet2InternalRequestAdapter;
-import agent.domain.InternalHttpRequest;
+import agent.domain.requst.SimpleHttpServlet2InternalRequestAdapter;
+import agent.domain.requst.InternalHttpRequest;
 import agent.domain.InternalServiceAgent;
-import agent.domain.MultipartHttpServlet2InternalRequestAdapter;
+import agent.domain.requst.MultipartHttpServlet2InternalRequestAdapter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +24,8 @@ import java.util.Map;
 @Service
 @ConfigurationProperties(prefix = "dispatcher")
 public class HttpDispatchService {
+    private static final String HTTP_HEAD_NAME = "Target-Service";
+
     private List<InternalServiceAgent> interServices;
     private Map<String, InternalServiceAgent> interServiceMap;
 
@@ -76,9 +78,7 @@ public class HttpDispatchService {
     }
 
     private InternalServiceAgent findService(HttpServletRequest request) {
-        String uri = request.getRequestURI();
-        String serviceName = uri.split("[/]")[1];
-        return interServiceMap.get(serviceName);
+        return interServiceMap.get(request.getHeader(HTTP_HEAD_NAME));
     }
 
     private void fillResponse(HttpServletResponse response, ResponseEntity<String> returnValue) {

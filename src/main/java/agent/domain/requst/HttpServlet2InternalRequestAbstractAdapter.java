@@ -1,4 +1,4 @@
-package agent.domain;
+package agent.domain.requst;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
