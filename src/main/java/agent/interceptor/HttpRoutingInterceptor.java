@@ -1,6 +1,6 @@
 package agent.interceptor;
 
-import agent.service.HttpDispatchService;
+import agent.domain.HttpDispatcher;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,15 +10,15 @@ import static utils.AnsiString.red;
 
 public class HttpRoutingInterceptor implements HandlerInterceptor {
 
-    private final HttpDispatchService dispatcher;
+    private final HttpDispatcher dispatcher;
 
-    public HttpRoutingInterceptor(HttpDispatchService dispatcher) {
+    public HttpRoutingInterceptor(HttpDispatcher dispatcher) {
         this.dispatcher = dispatcher;
     }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        if (!dispatcher.needDispatchToInternalServices(request)) {
+        if (!dispatcher.shouldDispatch(request)) {
             log(red("match routing rule failed! " + request.getRequestURI()));
             return true;
         }

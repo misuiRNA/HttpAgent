@@ -10,15 +10,15 @@ import agent.interceptor.HttpRoutingInterceptor;
 @Configuration
 public class HttpRoutingConfigurer implements WebMvcConfigurer {
 
-    private HttpDispatchService routingManager;
+    private final HttpDispatchService dispatchService;
     
-    public HttpRoutingConfigurer(HttpDispatchService routingManager) {
-        this.routingManager = routingManager;
+    public HttpRoutingConfigurer(HttpDispatchService dispatchService) {
+        this.dispatchService = dispatchService;
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        InterceptorRegistration registration = registry.addInterceptor(new HttpRoutingInterceptor(routingManager));
+        InterceptorRegistration registration = registry.addInterceptor(new HttpRoutingInterceptor(dispatchService.getDispatcher()));
         registration.addPathPatterns("/**");
     }
 }
