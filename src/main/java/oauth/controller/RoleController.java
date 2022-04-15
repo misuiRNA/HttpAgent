@@ -35,14 +35,14 @@ public class RoleController {
         return roleService.createRole(info);
     }
 
-    @PostMapping("/{id}/update")
+    @PostMapping("/update/{id}")
     public int update(@PathVariable("id") Integer roleId, @Validated @RequestBody RoleVO roleVO) {
         RoleInfo info = RoleInfo.build(roleVO);
         info.setRoleId(roleId);
         return roleService.updateRole(info);
     }
 
-    @PostMapping("/{id}/delete")
+    @PostMapping("/delete/{id}")
     public int delete(@PathVariable("id") Integer roleId) {
         return roleService.deleteRole(roleId);
     }
@@ -53,7 +53,7 @@ public class RoleController {
         return RoleVO.buildList(infos);
     }
 
-    @GetMapping("/{id}/allUsers")
+    @GetMapping("/allUsers/{id}")
     public List<UserVO> listUserHasRole(@PathVariable("id") Integer roleId) {
         List<UserInfo> infos = userService.listWithRole();
         return UserVO.buildList(infos);

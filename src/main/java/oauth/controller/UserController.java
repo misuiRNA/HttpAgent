@@ -32,14 +32,14 @@ public class UserController {
         return userService.createRole(info);
     }
 
-    @PostMapping("/{id}/update")
+    @PostMapping("/update/{id}")
     public int update(@PathVariable("id") Integer userId, @Validated @RequestBody UserVO userVO) {
         UserInfo info = UserInfo.build(userVO);
         info.setUserId(userId);
         return userService.updateRole(info);
     }
 
-    @PostMapping("/{id}/delete")
+    @PostMapping("/delete/{id}")
     public int delete(@PathVariable("id") Integer userId) {
         return userService.deleteRole(userId);
     }
@@ -50,7 +50,7 @@ public class UserController {
         return UserVO.buildList(infos);
     }
 
-    @GetMapping("/{id}/allRoles")
+    @GetMapping("/allRoles/{id}")
     public List<RoleVO> listRoles(@PathVariable("id") Integer userId) {
         UserInfo info = userService.getUserById(userId);
         List<RoleInfo> roles = info.getRoles();
