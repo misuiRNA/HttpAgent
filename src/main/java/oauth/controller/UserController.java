@@ -1,14 +1,13 @@
 package oauth.controller;
 
-import oauth.domain.dto.RoleInfo;
-import oauth.domain.dto.UserInfo;
-import oauth.domain.vo.RoleVO;
-import oauth.domain.vo.UserVO;
+import oauth.entity.dto.UserInfo;
+import oauth.entity.vo.UserVO;
 import oauth.service.UserService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/user")
@@ -47,14 +46,8 @@ public class UserController {
     @GetMapping("/list")
     public List<UserVO> listAll() {
         List<UserInfo> infos = userService.listAllUsers();
-        return UserVO.buildList(infos);
-    }
-
-    @GetMapping("/allRoles/{id}")
-    public List<RoleVO> listRoles(@PathVariable("id") Integer userId) {
-        UserInfo info = userService.getUserById(userId);
-        List<RoleInfo> roles = info.getRoles();
-        return RoleVO.buildList(roles);
+        List<UserVO> vos = infos.stream().map(UserVO::build).collect(Collectors.toList());
+        return vos;
     }
 
 }

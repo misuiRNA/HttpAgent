@@ -1,35 +1,45 @@
 package oauth.service;
 
-import oauth.domain.dto.UserInfo;
+import oauth.dao.UserDao;
+import oauth.entity.domain.User;
+import oauth.entity.dto.UserInfo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
 
+    private final UserDao userDao;
+
+    public UserService(UserDao userDao) {
+        this.userDao = userDao;
+    }
+
     public UserInfo getUserById(Integer userId) {
-        return null;
+        User user = userDao.getUser(userId);
+        return UserInfo.buildFromUser(user);
     }
 
     public int createRole(UserInfo info) {
-        return 0;
+        User user = User.build(info);
+        return userDao.create(user);
     }
 
     public int updateRole(UserInfo info) {
-        return 0;
+        User user = User.build(info);
+        return userDao.update(user);
     }
 
     public int deleteRole(Integer userId) {
-        return 0;
+        return userDao.delete(userId);
     }
 
     public List<UserInfo> listAllUsers() {
-        return null;
-    }
-
-    public List<UserInfo> listWithRole() {
-        return null;
+        List<User> users = userDao.listAll();
+        List<UserInfo> infos = users.stream().map(UserInfo::buildFromUser).collect(Collectors.toList());
+        return infos;
     }
 
 }

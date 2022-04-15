@@ -1,9 +1,8 @@
-package oauth.domain.vo;
+package oauth.entity.vo;
 
 import lombok.Data;
-import oauth.domain.dto.UserInfo;
+import oauth.entity.dto.UserInfo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -23,11 +22,4 @@ public class UserVO {
         return vo;
     }
 
-    public static List<UserVO> buildList(List<UserInfo> infos) {
-        List<UserVO> vos = new ArrayList<>(infos.size());
-        for (UserInfo info : infos) {
-            vos.add(build(info));
-        }
-        return vos;
-    }
 }
