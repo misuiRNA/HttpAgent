@@ -12,7 +12,9 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> listAll() {
-        return new ArrayList<>();
+        List<User> users = new ArrayList<>();
+        users.add(new User());
+        return users;
     }
 
     @Override

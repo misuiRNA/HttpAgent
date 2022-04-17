@@ -12,7 +12,9 @@ public class RoleDaoImpl implements RoleDao {
 
     @Override
     public List<Role> listAll() {
-        return new ArrayList<>();
+        List<Role> roles = new ArrayList<>();
+        roles.add(new Role());
+        return roles;
     }
 
     @Override

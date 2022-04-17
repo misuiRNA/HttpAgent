@@ -1,6 +1,7 @@
 package oauth.controller;
 
 import oauth.entity.dto.UserInfo;
+import oauth.entity.factory.UserFactory;
 import oauth.entity.vo.UserVO;
 import oauth.service.UserService;
 import org.springframework.validation.annotation.Validated;
@@ -22,18 +23,18 @@ public class UserController {
     @GetMapping("/{id}")
     public UserVO get(@PathVariable(name = "id") Integer userId) {
         UserInfo info = userService.getUserById(userId);
-        return UserVO.build(info);
+        return UserFactory.instance().buildVO(info);
     }
 
     @PostMapping("/create")
     public int create(@Validated @RequestBody UserVO userVO) {
-        UserInfo info = UserInfo.build(userVO);
+        UserInfo info = UserFactory.instance().buildInfo(userVO);
         return userService.createRole(info);
     }
 
     @PostMapping("/update/{id}")
     public int update(@PathVariable("id") Integer userId, @Validated @RequestBody UserVO userVO) {
-        UserInfo info = UserInfo.build(userVO);
+        UserInfo info = UserFactory.instance().buildInfo(userVO);
         info.setUserId(userId);
         return userService.updateRole(info);
     }
@@ -43,11 +44,10 @@ public class UserController {
         return userService.deleteRole(userId);
     }
 
-    @GetMapping("/list")
+    @GetMapping("/all")
     public List<UserVO> listAll() {
         List<UserInfo> infos = userService.listAllUsers();
-        List<UserVO> vos = infos.stream().map(UserVO::build).collect(Collectors.toList());
-        return vos;
+        return UserFactory.instance().buildVO(infos);
     }
 
 }

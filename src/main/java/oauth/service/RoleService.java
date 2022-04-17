@@ -3,10 +3,10 @@ package oauth.service;
 import oauth.dao.RoleDao;
 import oauth.entity.domain.Role;
 import oauth.entity.dto.RoleInfo;
+import oauth.entity.factory.RoleFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class RoleService {
@@ -19,16 +19,16 @@ public class RoleService {
 
     public RoleInfo getRoleById(Integer roleId) {
         Role role = roleDao.getRole(roleId);
-        return RoleInfo.buildFromRole(role);
+        return RoleFactory.instance().buildInfo(role);
     }
 
     public int createRole(RoleInfo info) {
-        Role role = Role.build(info);
+        Role role = RoleFactory.instance().build(info);
         return roleDao.create(role);
     }
 
     public int updateRole(RoleInfo info) {
-        Role role = Role.build(info);
+        Role role = RoleFactory.instance().build(info);
         return roleDao.update(role);
     }
 
@@ -38,7 +38,7 @@ public class RoleService {
 
     public List<RoleInfo> listAllRoles() {
         List<Role> roles = roleDao.listAll();
-        List<RoleInfo> infos = roles.stream().map(RoleInfo::buildFromRole).collect(Collectors.toList());
-        return infos;
+        return RoleFactory.instance().buildInfo(roles);
     }
+
 }

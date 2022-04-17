@@ -3,6 +3,7 @@ package oauth.service;
 import oauth.dao.UserDao;
 import oauth.entity.domain.User;
 import oauth.entity.dto.UserInfo;
+import oauth.entity.factory.UserFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,16 +20,16 @@ public class UserService {
 
     public UserInfo getUserById(Integer userId) {
         User user = userDao.getUser(userId);
-        return UserInfo.buildFromUser(user);
+        return UserFactory.instance().buildInfo(user);
     }
 
     public int createRole(UserInfo info) {
-        User user = User.build(info);
+        User user = UserFactory.instance().build(info);
         return userDao.create(user);
     }
 
     public int updateRole(UserInfo info) {
-        User user = User.build(info);
+        User user = UserFactory.instance().build(info);
         return userDao.update(user);
     }
 
@@ -38,8 +39,7 @@ public class UserService {
 
     public List<UserInfo> listAllUsers() {
         List<User> users = userDao.listAll();
-        List<UserInfo> infos = users.stream().map(UserInfo::buildFromUser).collect(Collectors.toList());
-        return infos;
+        return UserFactory.instance().buildInfo(users);
     }
 
 }

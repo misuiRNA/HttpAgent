@@ -1,7 +1,5 @@
 package oauth.entity.domain;
 
-import oauth.entity.dto.UserInfo;
-
 import java.util.List;
 
 public class User {
@@ -11,27 +9,28 @@ public class User {
     private String password;
     private List<Role> roles;
 
-    public static User build(UserInfo info) {
-        User user = new User();
-        user.userId = info.getUserId();
-        user.userName = info.getUserName();
-        user.password = info.getPassword();
-        return user;
-    }
-
     public Integer getUserId() {
         return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getUserName() {
         return userName;
     }
 
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     public String getPassword() {
         return password;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setPassword(String password) {
+        this.password = password;
     }
+
 }
