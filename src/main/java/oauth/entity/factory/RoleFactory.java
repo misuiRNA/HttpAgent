@@ -20,6 +20,10 @@ public class RoleFactory {
     }
 
     public Role build(RoleInfo info) {
+        if (info == null) {
+            return null;
+        }
+
         Role role = new Role();
         role.setRoleId(info.getRoleId());
         role.setRoleName(info.getRoleName());
@@ -27,6 +31,10 @@ public class RoleFactory {
     }
 
     public RoleInfo buildInfo(RoleVO vo) {
+        if (vo == null) {
+            return null;
+        }
+
         RoleInfo info = new RoleInfo();
         info.setRoleId(vo.getRoleId());
         info.setRoleName(vo.getRoleName());
@@ -34,6 +42,10 @@ public class RoleFactory {
     }
 
     public RoleInfo buildInfo(Role role) {
+        if (role == null) {
+            return null;
+        }
+
         RoleInfo info = new RoleInfo();
         info.setRoleId(role.getRoleId());
         info.setRoleName(role.getRoleName());
@@ -41,6 +53,10 @@ public class RoleFactory {
     }
 
     public List<RoleInfo> buildInfo(List<Role> roles) {
+        if (roles == null) {
+            return null;
+        }
+
         List<RoleInfo> infos = new ArrayList<>(roles.size());
         for (Role role : roles) {
             infos.add(buildInfo(role));
@@ -49,6 +65,10 @@ public class RoleFactory {
     }
 
     public RoleVO buildVO(RoleInfo info) {
+        if (info == null) {
+            return null;
+        }
+
         RoleVO vo = new RoleVO();
         vo.setRoleId(info.getRoleId());
         vo.setRoleName(info.getRoleName());
@@ -56,6 +76,10 @@ public class RoleFactory {
     }
 
     public List<RoleVO> buildVO(List<RoleInfo> infos) {
+        if (infos == null) {
+            return null;
+        }
+
         List<RoleVO> vos = new ArrayList<>(infos.size());
         for (RoleInfo info : infos) {
             vos.add(buildVO(info));

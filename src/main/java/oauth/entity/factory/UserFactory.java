@@ -20,6 +20,10 @@ public class UserFactory {
     }
 
     public User build(UserInfo info) {
+        if (info == null) {
+            return null;
+        }
+
         User user = new User();
         user.setUserId(info.getUserId());
         user.setUserName(info.getUserName());
@@ -28,6 +32,10 @@ public class UserFactory {
     }
 
     public UserInfo buildInfo(UserVO vo) {
+        if (vo == null) {
+            return null;
+        }
+
         UserInfo info = new UserInfo();
         info.setUserId(vo.getUserId());
         info.setUserName(vo.getUserName());
@@ -37,6 +45,10 @@ public class UserFactory {
     }
 
     public UserInfo buildInfo(User user) {
+        if (user == null) {
+            return null;
+        }
+
         UserInfo info = new UserInfo();
         info.setUserId(user.getUserId());
         info.setUserName(user.getUserName());
@@ -46,6 +58,10 @@ public class UserFactory {
     }
 
     public List<UserInfo> buildInfo(List<User> users) {
+        if (users == null) {
+            return null;
+        }
+
         List<UserInfo> infos = new ArrayList<>(users.size());
         for (User user : users) {
             infos.add(buildInfo(user));
@@ -54,6 +70,10 @@ public class UserFactory {
     }
 
     public UserVO buildVO(UserInfo info) {
+        if (info == null) {
+            return null;
+        }
+
         UserVO vo = new UserVO();
         vo.setUserId(info.getUserId());
         vo.setUserName(info.getUserName());
@@ -63,6 +83,10 @@ public class UserFactory {
     }
 
     public List<UserVO> buildVO(List<UserInfo> infos) {
+        if (infos == null) {
+            return null;
+        }
+
         List<UserVO> vos = new ArrayList<>(infos.size());
         for (UserInfo info : infos) {
             vos.add(buildVO(info));
