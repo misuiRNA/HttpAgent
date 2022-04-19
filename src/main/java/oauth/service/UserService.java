@@ -42,4 +42,18 @@ public class UserService {
         return UserFactory.instance().buildInfo(users);
     }
 
+    public UserInfo getUserByName(String name) {
+        List<User> users = userDao.listAll();
+
+        User user = null;
+        while (user == null && users.size() > 0) {
+            User u = users.get(0);
+            if (u.getUserName().equals(name)) {
+                user = u;
+            }
+            users.remove(u);
+        }
+
+        return UserFactory.instance().buildInfo(user);
+    }
 }

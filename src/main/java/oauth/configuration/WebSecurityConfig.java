@@ -1,5 +1,7 @@
 package oauth.configuration;
 
+import oauth.authentication.JWTAuthenticateProvider;
+import oauth.service.UserService;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,20 +12,15 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final UserService userService;
+
+    public WebSecurityConfig(UserService userService) {
+        this.userService = userService;
+    }
+
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("admin")
-                .password("{noop}123456")
-                .roles("ADMIN", "USER")
-            .and()
-                .withUser("user")
-                .password("{noop}321654")
-                .roles("USER")
-            .and()
-                .withUser("tmp")
-                .password("{noop}123123")
-                .roles();
+    protected void configure(AuthenticationManagerBuilder auth) {
+        auth.authenticationProvider(new JWTAuthenticateProvider(userService));
     }
 
     @Override
@@ -35,5 +32,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .formLogin().and()
             .httpBasic();
+//        http.authorizeRequests().anyRequest().permitAll();
     }
 }
