@@ -15,11 +15,11 @@ public class MockUser {
 
     public Map<Integer, User> mockUserMap = new HashMap<>();
     {
-        mockUserMap.put(nextId(), createUser(keyCount, "张三", "123456"));
-        mockUserMap.put(nextId(), createUser(keyCount, "李四", "654321"));
-        mockUserMap.put(nextId(), createUser(keyCount, "王麻子", "111111"));
-        mockUserMap.put(nextId(), createUser(keyCount, "赵六", "222222"));
-        mockUserMap.put(nextId(), createUser(keyCount, "钱七", "333333"));
+        mockUserMap.put(nextId(), createUser(keyCount, "Tom001", "123456"));
+        mockUserMap.put(nextId(), createUser(keyCount, "Tom002", "654321"));
+        mockUserMap.put(nextId(), createUser(keyCount, "Tom003", "111111"));
+        mockUserMap.put(nextId(), createUser(keyCount, "Tom004", "222222"));
+        mockUserMap.put(nextId(), createUser(keyCount, "Tom005", "333333"));
     }
 
     private MockUser() {
