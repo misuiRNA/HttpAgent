@@ -9,11 +9,11 @@ import org.springframework.security.authentication.dao.AbstractUserDetailsAuthen
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class JWTAuthenticateProvider extends AbstractUserDetailsAuthenticationProvider {
+public class MyAuthenticateProvider extends AbstractUserDetailsAuthenticationProvider {
 
     private final UserService userService;
 
-    public JWTAuthenticateProvider(UserService userService) {
+    public MyAuthenticateProvider(UserService userService) {
         this.userService = userService;
     }
 
