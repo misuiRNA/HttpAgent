@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class AuthUser implements UserDetails {
+public class UserDetailsAdapter implements UserDetails {
 
     private final UserInfo userInfo;
 
-    public AuthUser(UserInfo userInfo) {
+    public UserDetailsAdapter(UserInfo userInfo) {
         if (userInfo == null) {
             userInfo = UserInfo.defaultUserInfo();
         }

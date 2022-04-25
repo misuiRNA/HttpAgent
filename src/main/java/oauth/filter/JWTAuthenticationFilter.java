@@ -1,6 +1,8 @@
 package oauth.filter;
 
-import oauth.authentication.MyJWTUtils;
+import oauth.authentication.JWTToken;
+import oauth.authentication.UserDetailsAdapter;
+import oauth.entity.dto.UserInfo;
 import oauth.service.UserService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,9 +22,11 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
     private static final String TOKEN_PREFIX = "Bearer ";
 
     private final UserService userService;
+    private final JWTToken jwtUtils;
 
     public JWTAuthenticationFilter(UserService userService) {
         this.userService = userService;
+        this.jwtUtils = new JWTToken(userService);
     }
 
     @Override
@@ -36,10 +40,12 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
             token = token.substring(TOKEN_PREFIX.length());
         }
 
-        UserDetails userDetails = new MyJWTUtils(userService).decrypt(token);
-        if (userDetails == null) {
+        UserInfo userInfo = jwtUtils.decrypt(token);
+        if (userInfo == null) {
             throw new ServletException("invalid user!!!");
         }
+        UserDetails userDetails = new UserDetailsAdapter(userInfo);
+
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         SecurityContextHolder.getContext().setAuthentication(authentication);

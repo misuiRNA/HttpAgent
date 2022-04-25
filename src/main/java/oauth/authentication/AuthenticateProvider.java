@@ -9,11 +9,11 @@ import org.springframework.security.authentication.dao.AbstractUserDetailsAuthen
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class MyAuthenticateProvider extends AbstractUserDetailsAuthenticationProvider {
+public class AuthenticateProvider extends AbstractUserDetailsAuthenticationProvider {
 
     private final UserService userService;
 
-    public MyAuthenticateProvider(UserService userService) {
+    public AuthenticateProvider(UserService userService) {
         this.userService = userService;
     }
 
@@ -37,6 +37,6 @@ public class MyAuthenticateProvider extends AbstractUserDetailsAuthenticationPro
     @Override
     protected UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
         UserInfo info = userService.getUserByName(username);
-        return new AuthUser(info);
+        return new UserDetailsAdapter(info);
     }
 }

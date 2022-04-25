@@ -1,6 +1,6 @@
 package oauth.configuration;
 
-import oauth.authentication.MyAuthenticateProvider;
+import oauth.authentication.AuthenticateProvider;
 import oauth.authentication.URLAccessDecisionManager;
 import oauth.authentication.URLFilterInvocationSecurityMetadataSource;
 import oauth.filter.JWTAuthenticationFilter;
@@ -35,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(new MyAuthenticateProvider(userService));
+        auth.authenticationProvider(new AuthenticateProvider(userService));
     }
 
     @Override
