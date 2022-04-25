@@ -21,7 +21,7 @@ public class MyJWTUtils {
         if (info == null) {
             return null;
         }
-        return new AuthUser(info.getUserName(), info.getPassword());
+        return new AuthUser(info);
     }
 
 }

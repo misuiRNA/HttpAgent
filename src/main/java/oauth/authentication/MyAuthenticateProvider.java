@@ -37,9 +37,6 @@ public class MyAuthenticateProvider extends AbstractUserDetailsAuthenticationPro
     @Override
     protected UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
         UserInfo info = userService.getUserByName(username);
-        if (info == null) {
-            return new AuthUser(null, null);
-        }
-        return new AuthUser(info.getUserName(), info.getPassword());
+        return new AuthUser(info);
     }
 }

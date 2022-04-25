@@ -1,5 +1,7 @@
 package oauth.authentication;
 
+import oauth.entity.dto.RoleInfo;
+import oauth.entity.dto.UserInfo;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,34 +11,34 @@ import java.util.List;
 
 public class AuthUser implements UserDetails {
 
-    private final String userName;
-    private final String password;
+    private final UserInfo userInfo;
 
-    public AuthUser(String userName, String password) {
-        this.userName = userName;
-        this.password = password;
+    public AuthUser(UserInfo userInfo) {
+        if (userInfo == null) {
+            userInfo = UserInfo.defaultUserInfo();
+        }
+        this.userInfo = userInfo;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<RoleInfo> userRoles = userInfo.getRoles();
+
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new GrantedAuthority() {
-            @Override
-            public String getAuthority() {
-                return "ADMIN";
-            }
-        });
+        for (RoleInfo role : userRoles) {
+            authorities.add((GrantedAuthority) role::getRoleName);
+        }
         return authorities;
     }
 
     @Override
     public String getPassword() {
-        return password;
+        return userInfo.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return userName;
+        return userInfo.getUserName();
     }
 
     @Override

@@ -64,6 +64,19 @@ public class RoleFactory {
         return infos;
     }
 
+    // TODO try to optimize
+    public List<RoleInfo> buildInfoWithVOS(List<RoleVO> roleVOS) {
+        if (roleVOS == null) {
+            return null;
+        }
+
+        List<RoleInfo> infos = new ArrayList<>(roleVOS.size());
+        for (RoleVO vo : roleVOS) {
+            infos.add(buildInfo(vo));
+        }
+        return infos;
+    }
+
     public RoleVO buildVO(RoleInfo info) {
         if (info == null) {
             return null;

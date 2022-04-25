@@ -2,7 +2,10 @@ package samples.oauth.mokedata;
 
 import oauth.entity.domain.Role;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MockRole {
 
@@ -12,11 +15,11 @@ public class MockRole {
 
     public Map<Integer, Role> mockRoleMap = new HashMap<>();
     {
-        mockRoleMap.put(nextId(), createRole(keyCount, "管理员"));
-        mockRoleMap.put(nextId(), createRole(keyCount, "角色001"));
-        mockRoleMap.put(nextId(), createRole(keyCount, "角色002"));
-        mockRoleMap.put(nextId(), createRole(keyCount, "角色003"));
-        mockRoleMap.put(nextId(), createRole(keyCount, "角色005"));
+        mockRoleMap.put(nextId(), createRole(keyCount, "ADMIN"));
+        mockRoleMap.put(nextId(), createRole(keyCount, "USER_OO1"));
+        mockRoleMap.put(nextId(), createRole(keyCount, "USER_OO2"));
+        mockRoleMap.put(nextId(), createRole(keyCount, "USER_OO3"));
+        mockRoleMap.put(nextId(), createRole(keyCount, "USER_OO4"));
     }
 
     private MockRole() {
@@ -52,6 +55,18 @@ public class MockRole {
         role.setRoleId(id);
         role.setRoleName(name);
         return role;
+    }
+
+    public static List<Role> listRoles(String ... roleNames) {
+        List<Role> roles = new ArrayList<>(roleNames.length);
+        for (String roleName : roleNames) {
+            for (Role role : inst.mockRoleMap.values()) {
+                if (role.getRoleName().equals(roleName)) {
+                    roles.add(role);
+                }
+            }
+        }
+        return roles;
     }
 
 }

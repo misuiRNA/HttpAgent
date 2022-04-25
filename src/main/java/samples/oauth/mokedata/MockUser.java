@@ -1,5 +1,6 @@
 package samples.oauth.mokedata;
 
+import oauth.entity.domain.Role;
 import oauth.entity.domain.User;
 
 import java.util.ArrayList;
@@ -15,11 +16,11 @@ public class MockUser {
 
     public Map<Integer, User> mockUserMap = new HashMap<>();
     {
-        mockUserMap.put(nextId(), createUser(keyCount, "Tom001", "123456"));
-        mockUserMap.put(nextId(), createUser(keyCount, "Tom002", "654321"));
-        mockUserMap.put(nextId(), createUser(keyCount, "Tom003", "111111"));
-        mockUserMap.put(nextId(), createUser(keyCount, "Tom004", "222222"));
-        mockUserMap.put(nextId(), createUser(keyCount, "Tom005", "333333"));
+        mockUserMap.put(nextId(), createUser(keyCount, "Tom001", "123456", MockRole.listRoles("ADMIN")));
+        mockUserMap.put(nextId(), createUser(keyCount, "Tom002", "654321", MockRole.listRoles("USER_001")));
+        mockUserMap.put(nextId(), createUser(keyCount, "Tom003", "111111", MockRole.listRoles("ADMIN", "USER_001")));
+        mockUserMap.put(nextId(), createUser(keyCount, "Tom004", "222222", MockRole.listRoles("USER_001")));
+        mockUserMap.put(nextId(), createUser(keyCount, "Tom005", "333333", MockRole.listRoles("USER_001")));
     }
 
     private MockUser() {
@@ -50,13 +51,13 @@ public class MockUser {
         return new ArrayList<>(mockUserMap.values());
     }
 
-    private static User createUser(Integer id, String name, String password) {
+    private static User createUser(Integer id, String name, String password, List<Role> roles) {
         User user = new User();
         user.setUserId(id);
         user.setUserName(name);
         user.setPassword(password);
+        user.setRoles(roles);
         return user;
     }
-
 
 }

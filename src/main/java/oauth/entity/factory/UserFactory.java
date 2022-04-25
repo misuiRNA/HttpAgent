@@ -11,8 +11,10 @@ public class UserFactory {
 
     private static final UserFactory singletonInst = new UserFactory();
 
-    private UserFactory() {
+    private final RoleFactory roleFactory;
 
+    private UserFactory() {
+        roleFactory = RoleFactory.instance();
     }
 
     public static UserFactory instance() {
@@ -40,7 +42,7 @@ public class UserFactory {
         info.setUserId(vo.getUserId());
         info.setUserName(vo.getUserName());
         info.setPassword(vo.getPassword());
-        // TODO fill roles
+        info.setRoles(roleFactory.buildInfoWithVOS(vo.getRoles()));
         return info;
     }
 
@@ -53,7 +55,7 @@ public class UserFactory {
         info.setUserId(user.getUserId());
         info.setUserName(user.getUserName());
         info.setPassword(user.getPassword());
-        // TODO fill roles
+        info.setRoles(roleFactory.buildInfo(user.getRoles()));
         return info;
     }
 

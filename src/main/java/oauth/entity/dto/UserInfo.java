@@ -2,6 +2,7 @@ package oauth.entity.dto;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -11,5 +12,11 @@ public class UserInfo {
     private String userName;
     private String password;
     private List<RoleInfo> roles;
+
+    public static UserInfo defaultUserInfo() {
+        UserInfo userInfo = new UserInfo();
+        userInfo.setRoles(new ArrayList<>());
+        return userInfo;
+    }
 
 }
