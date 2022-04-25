@@ -3,40 +3,40 @@ package samples.oauth.dao;
 import oauth.dao.UserDao;
 import oauth.entity.domain.User;
 import org.springframework.stereotype.Component;
-import samples.oauth.mokedata.MockUser;
+import samples.oauth.mokedata.UserMock;
 
 import java.util.List;
 
 @Component
 public class UserDaoImpl implements UserDao {
 
-    private final MockUser mockUser = MockUser.instance();
+    private final UserMock userMock = UserMock.instance();
 
     @Override
     public List<User> listAll() {
-        return mockUser.getAll();
+        return userMock.getAll();
     }
 
     @Override
     public User getUser(Integer userId) {
-        return mockUser.get(userId);
+        return userMock.get(userId);
     }
 
     @Override
     public int create(User user) {
-        mockUser.set(mockUser.nextId(), user);
+        userMock.set(userMock.nextId(), user);
         return 0;
     }
 
     @Override
     public int update(User user) {
-        mockUser.set(user.getUserId(), user);
+        userMock.set(user.getUserId(), user);
         return 0;
     }
 
     @Override
     public int delete(Integer userId) {
-        mockUser.remove(userId);
+        userMock.remove(userId);
         return 0;
     }
 }

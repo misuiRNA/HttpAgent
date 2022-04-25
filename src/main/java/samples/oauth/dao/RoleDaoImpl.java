@@ -3,40 +3,40 @@ package samples.oauth.dao;
 import oauth.dao.RoleDao;
 import oauth.entity.domain.Role;
 import org.springframework.stereotype.Component;
-import samples.oauth.mokedata.MockRole;
+import samples.oauth.mokedata.RoleMock;
 
 import java.util.List;
 
 @Component
 public class RoleDaoImpl implements RoleDao {
 
-    MockRole mockRole = MockRole.instance();
+    RoleMock roleMock = RoleMock.instance();
 
     @Override
     public List<Role> listAll() {
-        return mockRole.getAll();
+        return roleMock.getAll();
     }
 
     @Override
     public Role getRole(Integer roleId) {
-        return mockRole.get(roleId);
+        return roleMock.get(roleId);
     }
 
     @Override
     public int create(Role role) {
-        mockRole.set(mockRole.nextId(), role);
+        roleMock.set(roleMock.nextId(), role);
         return 0;
     }
 
     @Override
     public int update(Role role) {
-        mockRole.set(role.getRoleId(), role);
+        roleMock.set(role.getRoleId(), role);
         return 0;
     }
 
     @Override
     public int delete(Integer roleId) {
-        mockRole.remove(roleId);
+        roleMock.remove(roleId);
         return 0;
     }
 

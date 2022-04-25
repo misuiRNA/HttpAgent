@@ -5,6 +5,7 @@ import oauth.service.UserService;
 
 public class JWTToken {
 
+    // TODO try to remove
     private final UserService userService;
 
     public JWTToken(UserService userService) {
