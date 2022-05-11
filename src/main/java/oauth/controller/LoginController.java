@@ -1,7 +1,8 @@
 package oauth.controller;
 
+import oauth.authentication.JWTEntry;
 import oauth.authentication.UserDetailsAdapter;
-import oauth.authentication.JWTToken;
+import oauth.authentication.JWTUtils;
 import oauth.entity.dto.UserInfo;
 import oauth.entity.request.LoginForm;
 import oauth.service.UserService;
@@ -17,12 +18,12 @@ public class LoginController {
 
     private final AuthenticationManager authenticationManager;
     private final UserService userService;
-    private final JWTToken jwtUtils;
+    private final JWTUtils jwtUtils;
 
     public LoginController(AuthenticationManager authenticationManager, UserService userService) {
         this.authenticationManager = authenticationManager;
         this.userService = userService;
-        this.jwtUtils = new JWTToken(userService);
+        this.jwtUtils = new JWTUtils();
     }
 
     @PostMapping("/login")
@@ -33,7 +34,15 @@ public class LoginController {
 
         // TODO try to optimize
         UserInfo userInfo = userService.getUserByName(userDetails.getUsername());
-        return jwtUtils.encrypt(userInfo);
+
+        JWTEntry entry = new JWTEntry();
+        entry.setTokenId("0001");
+        entry.setTokenSubject("test_subject");
+        entry.setTokenDurationMillis(60000);
+
+        entry.setUserName(userInfo.getUserName());
+        entry.setRoleName("None");
+        return jwtUtils.encrypt(entry);
     }
 
 }

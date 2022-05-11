@@ -1,6 +1,7 @@
 package oauth.filter;
 
-import oauth.authentication.JWTToken;
+import oauth.authentication.JWTEntry;
+import oauth.authentication.JWTUtils;
 import oauth.authentication.UserDetailsAdapter;
 import oauth.entity.dto.UserInfo;
 import oauth.service.UserService;
@@ -22,11 +23,11 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
     private static final String TOKEN_PREFIX = "Bearer ";
 
     private final UserService userService;
-    private final JWTToken jwtUtils;
+    private final JWTUtils jwtUtils;
 
     public JWTAuthenticationFilter(UserService userService) {
         this.userService = userService;
-        this.jwtUtils = new JWTToken(userService);
+        this.jwtUtils = new JWTUtils();
     }
 
     @Override
@@ -40,7 +41,9 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
             token = token.substring(TOKEN_PREFIX.length());
         }
 
-        UserInfo userInfo = jwtUtils.decrypt(token);
+        jwtUtils.check(token);
+        JWTEntry entry = jwtUtils.decrypt(token);
+        UserInfo userInfo = userService.getUserByName(entry.getUserName());
         if (userInfo == null) {
             throw new ServletException("invalid user!!!");
         }
