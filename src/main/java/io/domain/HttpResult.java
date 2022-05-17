@@ -1,12 +1,13 @@
 package io.domain;
 
-// TODO try to optimize with Generic(<T>)
+import io.exception.ResponseException;
+
 public class HttpResult {
     private final Integer code;
     private final String message;
     private final Object data;
 
-    public HttpResult(Integer code, String message, Object data) {
+    HttpResult(Integer code, String message, Object data) {
         this.code = code;
         this.message = message;
         this.data = data;
@@ -22,6 +23,18 @@ public class HttpResult {
 
     public Object getData() {
         return data;
+    }
+
+    public static HttpResult result(Integer code, String message, Object data) {
+        return new HttpResult(code, message, data);
+    }
+
+    public static HttpResult ok(Object data) {
+        return result(200, "success", data);
+    }
+
+    public static HttpResult fail(ResponseException e) {
+        return result(e.getCode(), e.getDescription(), e.getMessage());
     }
 
 }

@@ -1,7 +1,6 @@
 package oauth.authentication;
 
 import oauth.entity.dto.UserInfo;
-import oauth.exception.InvalidUserAuthException;
 import oauth.service.UserService;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,7 +19,7 @@ public class AuthenticateProvider extends AbstractUserDetailsAuthenticationProvi
     @Override
     protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
         if (userDetails.getUsername() == null) {
-            throw new InvalidUserAuthException("can't find user");
+            throw new IllegalArgumentException("can't find user");
         }
 
         if (authentication.getCredentials() == null) {

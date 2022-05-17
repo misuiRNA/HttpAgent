@@ -27,7 +27,7 @@ public class HttpResponseJsonDecorator implements ResponseBodyAdvice<Object> {
             return body;
         }
 
-        Object result = new HttpResult(200, "success", body);
+        Object result = HttpResult.ok(body);
         if (body instanceof String) {
             HttpHeaders headers = response.getHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
