@@ -1,8 +1,8 @@
 package oauth.controller;
 
 import oauth.authentication.JWTEntry;
-import oauth.authentication.UserDetailsAdapter;
 import oauth.authentication.JWTUtils;
+import oauth.authentication.UserDetailsAdapter;
 import oauth.entity.dto.UserInfo;
 import oauth.entity.request.LoginForm;
 import oauth.service.UserService;
@@ -10,7 +10,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/")
@@ -38,7 +41,7 @@ public class LoginController {
         JWTEntry entry = new JWTEntry();
         entry.setTokenId("0001");
         entry.setTokenSubject("test_subject");
-        entry.setTokenDurationMillis(60000);
+        entry.setTokenDurationMillis(60 * 60 * 1000);
 
         entry.setUserName(userInfo.getUserName());
         entry.setRoleName("None");
