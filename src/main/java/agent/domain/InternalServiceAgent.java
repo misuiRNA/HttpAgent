@@ -23,6 +23,10 @@ public class InternalServiceAgent {
         return serviceName;
     }
 
+    public boolean isAvailable() {
+        return serviceName != null && serviceHostUrl != null;
+    }
+
     public ResponseEntity<String> invoke(InternalHttpRequest request)  throws RestClientException {
         String remoteUrl = parseUrl(request) + request.getQueryString();
         log(green(String.format("invoke internal service: %s", remoteUrl)));

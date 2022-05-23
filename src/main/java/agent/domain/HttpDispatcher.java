@@ -24,8 +24,15 @@ public class HttpDispatcher {
 
     private final Map<String, InternalServiceAgent> interServiceMap = new HashMap<>();
 
-    public void register(String name, InternalServiceAgent service) {
-        interServiceMap.put(name, service);
+    public void register(InternalServiceAgent service) {
+        if (service.getServiceName() == null) {
+            throw new RuntimeException("service name could not been null!");
+        }
+        if (!service.isAvailable()) {
+            throw new RuntimeException("service[:" + service.getServiceName() + "] is unavailable!");
+        }
+
+        interServiceMap.put(service.getServiceName(), service);
     }
 
     public boolean shouldDispatch(HttpServletRequest request) {

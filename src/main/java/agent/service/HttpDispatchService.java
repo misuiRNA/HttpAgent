@@ -17,7 +17,7 @@ public class HttpDispatchService {
         log("========= start init http invoke dispatcher =========");
         for (InternalServiceAgent service : interServices) {
             log("- " + service);
-            dispatcher.register(service.getServiceName(), service);
+            dispatcher.register(service);
         }
         log("========= init http invoke dispatcher end =========");
     }
