@@ -9,8 +9,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class HttpDispatcherTest {
 
-	private static final String INVOKE_HEADER = "Target-Service";
-
 	private final HttpDispatcher dispatcher = new HttpDispatcher();
 	{
 		dispatcher.register(createInternalServiceAgent("service_register_001", "http://test001.com"));
@@ -57,7 +55,7 @@ class HttpDispatcherTest {
 
 	private MockHttpServletRequest mockRequest(String method, String requestURI, String invokeServer) {
 		MockHttpServletRequest request = new MockHttpServletRequest(method, requestURI);
-		request.addHeader(INVOKE_HEADER, invokeServer);
+		request.addHeader(HttpDispatcher.INVOKE_HEADER, invokeServer);
 		return request;
 	}
 

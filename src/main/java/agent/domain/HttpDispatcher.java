@@ -20,7 +20,7 @@ import java.util.Map;
 
 public class HttpDispatcher {
 
-    private static final String HTTP_HEAD_INVOKE_SERVICE_NAME = "Target-Service";
+    public static final String INVOKE_HEADER = "Target-Service";
 
     private final Map<String, InternalServiceAgent> interServiceMap = new HashMap<>();
 
@@ -63,7 +63,7 @@ public class HttpDispatcher {
     }
 
     private InternalServiceAgent findService(HttpServletRequest request) {
-        return interServiceMap.get(request.getHeader(HTTP_HEAD_INVOKE_SERVICE_NAME));
+        return interServiceMap.get(request.getHeader(INVOKE_HEADER));
     }
     private InternalHttpRequest createInternalHttpRequest(HttpServletRequest request) {
         // TODO: try to optimize the condition, use head 'Content-Type'
