@@ -1,4 +1,4 @@
-package samples.agent.controller;
+package agent.mock.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

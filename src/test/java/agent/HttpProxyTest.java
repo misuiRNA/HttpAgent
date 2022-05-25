@@ -1,6 +1,7 @@
 package agent;
 
 import agent.domain.HttpDispatcher;
+import agent.mock.HttpProxyApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
-import samples.agent.HttpProxyApplication;
 
 import static org.junit.jupiter.api.Assertions.*;
 
