@@ -6,7 +6,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static utils.AnsiString.red;
+import static common.AnsiString.red;
 
 public class HttpRoutingInterceptor implements HandlerInterceptor {
 

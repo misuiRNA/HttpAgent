@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import static utils.AnsiString.green;
+import static common.AnsiString.green;
 
 public class InternalServiceAgent {
     private String serviceName;

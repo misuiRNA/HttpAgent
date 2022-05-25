@@ -1,4 +1,4 @@
-package samples.oauth.mokedata;
+package sample.datamocker;
 
 import oauth.entity.domain.Role;
 

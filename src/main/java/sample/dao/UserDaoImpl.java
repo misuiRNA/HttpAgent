@@ -1,9 +1,9 @@
-package samples.oauth.dao;
+package sample.dao;
 
 import oauth.dao.UserDao;
 import oauth.entity.domain.User;
 import org.springframework.stereotype.Component;
-import samples.oauth.mokedata.UserMock;
+import sample.datamocker.UserMock;
 
 import java.util.List;
 

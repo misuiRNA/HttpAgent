@@ -1,9 +1,9 @@
-package samples.oauth.dao;
+package sample.dao;
 
 import oauth.dao.RoleDao;
 import oauth.entity.domain.Role;
 import org.springframework.stereotype.Component;
-import samples.oauth.mokedata.RoleMock;
+import sample.datamocker.RoleMock;
 
 import java.util.List;
 

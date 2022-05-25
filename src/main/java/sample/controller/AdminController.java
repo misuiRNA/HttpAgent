@@ -1,4 +1,4 @@
-package samples.oauth.controller;
+package sample.controller;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;

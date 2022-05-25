@@ -1,4 +1,4 @@
-package samples.oauth.controller;
+package sample.controller;
 
 import io.exception.InvalidArgumentsException;
 import io.exception.InvalidCredentialsException;
