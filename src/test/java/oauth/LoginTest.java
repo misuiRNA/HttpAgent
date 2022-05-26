@@ -70,7 +70,7 @@ public class LoginTest {
                 post("/login").content(content).contentType(MediaType.APPLICATION_JSON)
         ).andReturn();
 
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), result.getResponse().getStatus());
+        assertEquals(HttpStatus.FORBIDDEN.value(), result.getResponse().getStatus());
     }
 
     private String objToJson(Object obj) {

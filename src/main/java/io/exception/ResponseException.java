@@ -11,6 +11,12 @@ public class ResponseException extends RuntimeException {
         this.description = description;
     }
 
+    public ResponseException(int code, String description, Throwable cause) {
+        super(cause);
+        this.code = code;
+        this.description = description;
+    }
+
     public int getCode() {
         return code;
     }

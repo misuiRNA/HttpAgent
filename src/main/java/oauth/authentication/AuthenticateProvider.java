@@ -1,8 +1,8 @@
 package oauth.authentication;
 
+import io.exception.InvalidCredentialsException;
 import oauth.entity.dto.UserInfo;
 import oauth.service.UserService;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider;
 import org.springframework.security.core.AuthenticationException;
@@ -23,13 +23,13 @@ public class AuthenticateProvider extends AbstractUserDetailsAuthenticationProvi
         }
 
         if (authentication.getCredentials() == null) {
-            throw new BadCredentialsException(messages.getMessage("AbstractUserDetailsAuthenticationProvider.badCredentials", "Bad credentials"));
+            throw new InvalidCredentialsException("unknown error!");
         }
 
         String password = authentication.getCredentials().toString();
         String expectedPassword = userDetails.getPassword();
         if (password == null || !password.equals(expectedPassword)) {
-            throw new BadCredentialsException(messages.getMessage("AbstractUserDetailsAuthenticationProvider.badCredentials", "Bad credentials"));
+            throw new InvalidCredentialsException("incorrect password!");
         }
     }
 

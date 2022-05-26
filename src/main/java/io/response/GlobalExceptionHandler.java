@@ -11,8 +11,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler
     public HttpResult exceptionHandler(Exception e) {
-        e.printStackTrace();
-        return exceptionHandler(new InternalServerError(e.getMessage()));
+        return exceptionHandler(new InternalServerError(e));
     }
 
     @ExceptionHandler

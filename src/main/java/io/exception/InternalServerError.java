@@ -9,4 +9,8 @@ public class InternalServerError extends ResponseException {
         super(code, description, message);
     }
 
+    public InternalServerError(Throwable cause) {
+        super(code, description, cause);
+    }
+
 }
