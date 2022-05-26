@@ -11,7 +11,7 @@ public class UserInfo {
     private Integer userId;
     private String userName;
     private String password;
-    private List<RoleInfo> roles;
+    private List<RoleInfo> roles = new ArrayList<>();
 
     public static UserInfo defaultUserInfo() {
         UserInfo userInfo = new UserInfo();
