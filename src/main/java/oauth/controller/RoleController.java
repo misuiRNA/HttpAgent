@@ -1,13 +1,14 @@
 package oauth.controller;
 
 import oauth.entity.dto.RoleInfo;
-import oauth.entity.factory.RoleFactory;
+import oauth.entity.utils.RoleBuilder;
 import oauth.entity.vo.RoleVO;
 import oauth.service.RoleService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/role")
@@ -22,18 +23,18 @@ public class RoleController {
     @GetMapping("/{id}")
     public RoleVO get(@PathVariable(name = "id") Integer roleId) {
         RoleInfo roleInfo = roleService.getRoleById(roleId);
-        return RoleFactory.instance().buildVO(roleInfo);
+        return RoleBuilder.buildVO(roleInfo);
     }
 
     @PostMapping("/create")
     public int create(@Validated @RequestBody RoleVO roleVO) {
-        RoleInfo info = RoleFactory.instance().buildInfo(roleVO);
+        RoleInfo info = RoleBuilder.buildInfo(roleVO);
         return roleService.createRole(info);
     }
 
     @PostMapping("/update/{id}")
     public int update(@PathVariable("id") Integer roleId, @Validated @RequestBody RoleVO roleVO) {
-        RoleInfo info = RoleFactory.instance().buildInfo(roleVO);
+        RoleInfo info = RoleBuilder.buildInfo(roleVO);
         info.setRoleId(roleId);
         return roleService.updateRole(info);
     }
@@ -46,7 +47,7 @@ public class RoleController {
     @GetMapping("/all")
     public List<RoleVO> listAll() {
         List<RoleInfo> infos = roleService.listAllRoles();
-        return RoleFactory.instance().buildVO(infos);
+        return infos.stream().map(RoleBuilder::buildVO).collect(Collectors.toList());
     }
 
 }
