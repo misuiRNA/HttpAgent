@@ -35,6 +35,10 @@ public class RSAEncryptHandler implements EncryptHandler  {
         return new String(originBytes, StandardCharsets.UTF_8);
     }
 
+    public String getPublicKey() {
+        return Base64.getEncoder().encodeToString(keyPair.getPublic().getEncoded());
+    }
+
     private static Cipher createCipher(int mode, Key key) throws GeneralSecurityException {
         Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
         cipher.init(mode, key);
